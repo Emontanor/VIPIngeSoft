@@ -1,0 +1,25 @@
+local
+git commit: crear un nuevo commit siguiente en la rama en la que estoy parado
+git rebase main side: trae toda la rama de side (desde que es diferente a la rama de main) y la coloca debajo de main
+git rebase side: pone la rama en la que estas parado debajo de la rama side (desde donde son diferentes)
+git rebase -i referencia: permite omitir o reordenar los comits debajo de la rama referencia
+git cherry-pick a b c: trae los comit a b c y los coloca debajo de la rama en la que estas parado
+git branch nombre: crea una nueva rama en donde estas parado pero no te mueve a ella
+git branch -f rama referencia: mueve la etiqueta de la rama "rama" al commit "referencia"
+git checkout rama: te mueve a la rama "rama"
+git checkout -b rama referencia: crea una nueva rama llamada "rama" desde el commit referencia y te para en ella 
+git merge rama: revisa los últimos commits de las dos ramas para crear uno nuevo de la rama donde estas parado que es hijo de ambos y mezcla los desarrollos de ambos (mezclas ambas ramas y avanzas en la que estas parado)
+
+remote:
+git fetch: trae todos los cambias del repo remoto a tu local, pero no hace ningún cambio en el loca
+git pull: trae los datos del remoto y los mezcla con el local (git pull = git fetch + git merge origin/main)
+git pull - rabse: en vez de hacer un merge después de traer los datos, hacer un rebase de tu rama main sobre la main que se trae del rometo(git pull --rebase = git pull, git rebase o/main
+
+git checkout -b foo o/main: crea una rama foo que seguirá o hara el papel de la rama main del remoto, es decir si hago push desde foo se actualizara a la rama main del remoto. 
+git branch -u o/main (foo): si estas parado en foo poner el nombre es opcional, representa lo mismo que el anterior, dentro de mi local lo que suba en la rama de foo se subirá a la rama main del remoto pues la rama foo esta atacha a la rama o/main
+
+el git push y el pull tiene la forma origin <rama a mover>:<rama destino> si en el pull se pone una rama a mover se moverá también la referencia origin/rama en el local pero si solo se pone el hash del commit se moverá la rama destino pero la origin/rama no
+
+** git push origin /foo: elimina la rama foo del repo remoto
+** git fecth origin /bar: crea la rama bar en mi repo local
+
