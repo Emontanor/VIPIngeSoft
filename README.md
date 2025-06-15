@@ -23,13 +23,13 @@ Somos un Lolas VIP, un grupo de estudiantes de ingeniería de sistemas y computa
 
 ### **📩 Contacto:**
 
-- [Federico Hernandez Montano 💃](fhernandezm@unal.edu.co)
+- [Federico Hernandez Montano 💃](mailto:fhernandezm@unal.edu.co)
 
-- [Juan David Montenegro Lopez 🍺](jumontenegrol@unal.edu.co)
+- [Juan David Montenegro Lopez 🍺](mailto:jumontenegrol@unal.edu.co)
 
-- [Diego Esteban Ospina Ladino 💻](diospinal@unal.edu.co)
+- [Diego Esteban Ospina Ladino 💻](mailto:diospinal@unal.edu.co)
 
-- [Juan David Serrano Ruiz 👑](juserranor@unal.edu.co)
+- [Juan David Serrano Ruiz 👑](mailto:juserranor@unal.edu.co)
 
 <hr>
 
