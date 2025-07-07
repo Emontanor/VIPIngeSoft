@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import Report from './Report';
+import Map from './Map';
+import Statistics from './Statistics';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/report" element={<Report />} />
+      <Route path="/map" element={<Map />} />
+      <Route path="/statistics" element={<Statistics />} />
+    </Routes>
+  </BrowserRouter>
+);

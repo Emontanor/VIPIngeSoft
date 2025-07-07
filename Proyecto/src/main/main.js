@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-const {} = require("auth.js");
+//const {} = require("auth.js");
+const { ipcMain } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -14,7 +15,13 @@ function createWindow() {
   win.loadURL("http://localhost:5173"); // Puerto de desarrollo de Vite
 }
 
-
+ipcMain.handle("login", async (event, { email, password }) => {
+  // Aquí iría la lógica para validar el login.
+  console.log("Login attempt:", email, password);
+  return {
+    success: true, // Simula un login exitoso
+  };
+});
 
 app.whenReady().then(() => {
   createWindow();

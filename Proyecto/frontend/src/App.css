@@ -1,42 +1,80 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+* {
+  box-sizing: border-box;
+}
+.background {
+  background-image: url('./assets/Edificio_de_Medicina.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding-top: 6rem;    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.header {
+  background-color: rgba(128, 0, 128, 0.5); 
+  color: white;
+  width: 100%;
+  text-align: right;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: absolute;  
+  top: 0;
+  left: 0;
+  z-index: 10; 
+}
+.login-box {
+  background-color: rgba(128, 0, 128, 0.5); 
+  color: white;
   padding: 2rem;
+  border-radius: 20px;
+  width: 300px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.login-box h1 {
+  margin-bottom: 0.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-box p {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
 }
 
-.card {
-  padding: 2em;
+.login-box input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
 }
 
-.read-the-docs {
-  color: #888;
+.login-box button {
+  background-color: #4b1959;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.secondary {
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.separator {
+  margin: 0.5rem 0;
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+

@@ -1,5 +1,6 @@
-const { contextBridge } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("api", {
-  // funciones seguras aquí si necesitas comunicación con Node.js
+  login: (email, password) =>
+    ipcRenderer.invoke("login", { email, password }),
 });
