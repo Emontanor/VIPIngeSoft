@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
+const {} = require("auth.js");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -12,6 +13,8 @@ function createWindow() {
 
   win.loadURL("http://localhost:5173"); // Puerto de desarrollo de Vite
 }
+
+
 
 app.whenReady().then(() => {
   createWindow();
