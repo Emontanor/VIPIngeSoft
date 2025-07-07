@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
-import Report from './Report';
-import Map from './Map';
-import Statistics from './Statistics';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import Report from "./Report";
+import Map from "./Map";
+import Statistics from "./Statistics";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Login />} />

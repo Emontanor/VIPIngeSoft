@@ -1,42 +1,42 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './App.css';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./App.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const validarLogin = async (e) => {
-  e.preventDefault();
-  const regex = /^[a-zA-Z0-9._%+-]+@unal\.edu\.co$/;
+    e.preventDefault();
+    const regex = /^[a-zA-Z0-9._%+-]+@unal\.edu\.co$/;
 
-  if (!email || !password) {
-    setError('Todos los campos son obligatorios');
-    return;
-  }
-
-  if (!regex.test(email)) {
-    setError('El correo debe ser @unal.edu.co');
-    return;
-  }
-
-  try {
-    const response = await window.api.login(email, password);
-
-    if (response.success) {
-      setError('');
-      alert('Comunicacion exitosa');
-      //navigate('/report');
-    } else {
-      setError(response.message || 'Error de autenticación');
+    if (!email || !password) {
+      setError("Todos los campos son obligatorios");
+      return;
     }
-  } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-    setError('Error de comunicación con el backend');
-  }
-};
+
+    if (!regex.test(email)) {
+      setError("El correo debe ser @unal.edu.co");
+      return;
+    }
+
+    try {
+      const response = await window.api.login(email, password);
+
+      if (response.success) {
+        setError("");
+        alert("Comunicacion exitosa");
+        navigate("/map");
+      } else {
+        setError(response.message || "Error de autenticación");
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      setError("Error de comunicación con el backend");
+    }
+  };
 
   return (
     <div className="background">
@@ -63,7 +63,7 @@ function Login() {
             required
           />
 
-          {error && <p style={{ color: 'black' }}>{error}</p>}
+          {error && <p style={{ color: "black" }}>{error}</p>}
 
           <button type="submit">Login</button>
         </form>
