@@ -1,7 +1,9 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-//const {} = require("auth.js");
 const { ipcMain } = require("electron");
+//const {} = require("auth.js");
+const db = require("../database/db");
+
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -16,11 +18,17 @@ function createWindow() {
 }
 
 ipcMain.handle("login", async (event, { email, password }) => {
-  // Aquí iría la lógica para validar el login.
   console.log("Login attempt:", email, password);
-  return {
-    success: true, // Simula un login exitoso
-  };
+
+  const stmt = db.prepare("SELECT * FROM usuarios WHERE correo = ?");
+  const usuario = stmt.get(email);
+  if (usuario == null) {
+    console.log("Usuario no encontrado");
+  } else {
+    console.log("Usuario encontrado:", usuario);
+  }
+
+  return {success: true,}; // Simula un login exitoso
 });
 
 app.whenReady().then(() => {

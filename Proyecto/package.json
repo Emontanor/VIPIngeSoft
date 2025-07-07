@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix frontend\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "npm run build --prefix frontend && electron-builder",
-    "start": "electron ."
+    "start": "electron .",
+    "rebuild": "electron-rebuild"
   },
   "build": {
     "appId": "com.cacviun.app",
@@ -32,7 +33,12 @@
     "concurrently": "^9.2.0",
     "electron": "^37.2.0",
     "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
     "nodemon": "^3.1.10",
     "wait-on": "^8.0.3"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "sqlite3": "^5.1.7"
   }
 }
