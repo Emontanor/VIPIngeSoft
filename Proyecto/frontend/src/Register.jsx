@@ -5,17 +5,17 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function Register() {
-  const [Name, setName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const validarEmail = (e) => {
+  const validarEmail = async (e) => {
     e.preventDefault();
     const regex = /^[a-zA-Z0-9._%+-]+@unal\.edu\.co$/;
 
-    if (!email || !Password) {
+    if (!email || !password) {
       setError("All fields are required");
       return;
     }
@@ -25,15 +25,30 @@ function Register() {
       return;
     }
     setError("");
-    toast.success("Account Created Successfull", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      theme: "colored",
-    });
+
+    try {
+      const response = await window.api.register(email, password, name);
+
+      if (response.success) {
+        setError("");
+        toast.success("Account Created Successfull", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          theme: "colored",
+        });
+      } else {
+        setError(response.message || "Error al crear usuario");
+      }
+    } catch (error) {
+      console.error("Error al crear usuario:", error);
+      setError("Error de comunicación con el backend");
+    }
+
+    
 
     setTimeout(() => {
       navigate("/");
@@ -50,6 +65,7 @@ function Register() {
           <input
             type="text"
             placeholder="Your Name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
@@ -67,7 +83,7 @@ function Register() {
           <input
             type="password"
             placeholder="Create a password"
-            value={Password}
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />

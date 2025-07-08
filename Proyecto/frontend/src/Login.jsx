@@ -27,7 +27,6 @@ function Login() {
 
       if (response.success) {
         setError("");
-        alert("Comunicacion exitosa");
         navigate("/map");
       } else {
         setError(response.message || "Error de autenticación");

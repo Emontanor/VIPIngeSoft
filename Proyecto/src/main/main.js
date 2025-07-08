@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { ipcMain } = require("electron");
-//const {} = require("auth.js");
-const db = require("../database/db");
+const { login } = require("../backend/selects.js");
+const { register } = require("../backend/inserts.js");
 
 
 function createWindow() {
@@ -18,18 +18,15 @@ function createWindow() {
 }
 
 ipcMain.handle("login", async (event, { email, password }) => {
-  console.log("Login attempt:", email, password);
+  //console.log("Login attempt:", email, password);
+  return await login(email, password);
 
-  const stmt = db.prepare("SELECT * FROM usuarios WHERE correo = ?");
-  const usuario = stmt.get(email);
-  if (usuario == null) {
-    console.log("Usuario no encontrado");
-  } else {
-    console.log("Usuario encontrado:", usuario);
-  }
-
-  return {success: true,}; // Simula un login exitoso
 });
+
+ipcMain.handle("register", async (event, {email, password, name}) => {
+  console.log("Register attempt:", email, password, name);
+  return await register(email, password, name);
+})
 
 app.whenReady().then(() => {
   createWindow();
