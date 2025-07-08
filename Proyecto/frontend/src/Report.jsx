@@ -114,22 +114,6 @@ function Report() {
   return (
     <div className="report-container">
       <Header role = "admin" view = "report" />
-      {/*<div className="report-header">
-        <div className="header-buttons">
-          <Link to="/statistics">
-            <button className="header-btn">SEE THE STATISTICS</button>
-          </Link>
-          <Link to="/map">
-            <button className="header-btn">SEE THE MAP</button>
-          </Link>
-          <button className="header-btn" onClick={handleSignOut}>
-            Sign Out
-          </button>
-        </div>
-        <div className="logo-wrapper">
-          <span className="logo">CACVi-UN</span>
-        </div>
-      </div>*/}
 
       <div className="report-content">
         <div className="form-header-text">
@@ -175,26 +159,6 @@ function Report() {
               onChange={handleChange}
               placeholder="Please put your age"
             />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="link">LINK WITH THE UNIVERSITY</label>
-            <select
-              id="link"
-              name="link"
-              value={form.link}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="Undergraduate student">
-                Undergraduate student
-              </option>
-              <option value="Graduate student">Graduate student</option>
-              <option value="Teacher">Teacher</option>
-              <option value="Administrator">Administrator</option>
-              <option value="Worker">Worker</option>
-              <option value="External">External</option>
-            </select>
           </div>
 
           <div className="form-group">
