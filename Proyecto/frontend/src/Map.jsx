@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Report.css"; // para mantener tu estilo actual
+import Header from "./Header";
 
 function Map() {
   const navigate = useNavigate();
@@ -13,22 +14,8 @@ function Map() {
 
   return (
     <div className="report-container">
-      <header className="report-header">
-        <div className="header-buttons">
-          <Link to="/statistics">
-            <button className="header-btn">See the statistics</button>
-          </Link>
-          <Link to="/report">
-            <button className="header-btn">Make a report</button>
-          </Link>
-          <button className="header-btn" onClick={handleSignOut}>
-            Sign Out
-          </button>
-        </div>
-        <div className="logo-wrapper">
-          <span className="logo">CACVi-UN</span>
-        </div>
-      </header>
+
+      <Header role="admin" view = "map" />
 
       <div className="report-content">
         <h1
@@ -49,7 +36,7 @@ function Map() {
             center={[4.638193, -74.084046]} // Centro: UNAL Bogotá
             zoom={17} // Zoom inicial
             minZoom={16} // Zoom mínimo (no puede alejar más)
-            maxZoom={20} // Zoom máximo (acercar más)
+            maxZoom={18} // Zoom máximo (acercar más)
             maxBounds={[
               [4.6315, -74.0935], // suroeste (más abajo y más a la izquierda)
               [4.6445, -74.069], // noreste (más arriba y más a la derecha)

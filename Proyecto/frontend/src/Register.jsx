@@ -27,7 +27,7 @@ function Register() {
     setError("");
 
     try {
-      const response = await window.api.register(email, password, name);
+      const response = await window.api.register(2, email, password, name);
 
       if (response.success) {
         setError("");

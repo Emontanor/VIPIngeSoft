@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Report.css';
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 function Statistics() {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ function Statistics() {
   };
   return (
     <div className="report-container">
-      <header className="report-header">
+      <Header role="admin" view = "statistics" />
+      {/* <header className="report-header">
         <div className="header-buttons">
           <Link to="/Map">
             <button className="header-btn">See the map</button>
@@ -24,7 +26,7 @@ function Statistics() {
         <div className="logo-wrapper">
           <span className="logo">CACVi-UN</span>
         </div>
-      </header>
+      </header> */}
 
       <div className="report-content">
         <h1 className="form-title" style={{ textAlign: 'center', padding: '0.1rem'}}>

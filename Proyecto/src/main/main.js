@@ -4,7 +4,6 @@ const { ipcMain } = require("electron");
 const { login } = require("../backend/selects.js");
 const { register } = require("../backend/inserts.js");
 
-
 function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
@@ -23,9 +22,9 @@ ipcMain.handle("login", async (event, { email, password }) => {
 
 });
 
-ipcMain.handle("register", async (event, {email, password, name}) => {
-  console.log("Register attempt:", email, password, name);
-  return await register(email, password, name);
+ipcMain.handle("register", async (event, { role, email, password, name}) => {
+  console.log("Register attempt:", role, email, password, name);
+  return await register(role, email, password, name);
 })
 
 app.whenReady().then(() => {

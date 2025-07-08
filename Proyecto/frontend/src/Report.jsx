@@ -12,6 +12,7 @@ import L from "leaflet";
 import "react-toastify/dist/ReactToastify.css";
 import "leaflet/dist/leaflet.css";
 import "./Report.css";
+import Header from "./Header";
 
 // Icono rojo personalizado
 const customIcon = new L.Icon({
@@ -112,7 +113,8 @@ function Report() {
 
   return (
     <div className="report-container">
-      <div className="report-header">
+      <Header role = "admin" view = "report" />
+      {/*<div className="report-header">
         <div className="header-buttons">
           <Link to="/statistics">
             <button className="header-btn">SEE THE STATISTICS</button>
@@ -127,7 +129,7 @@ function Report() {
         <div className="logo-wrapper">
           <span className="logo">CACVi-UN</span>
         </div>
-      </div>
+      </div>*/}
 
       <div className="report-content">
         <div className="form-header-text">
@@ -246,7 +248,7 @@ function Report() {
                 center={[4.638193, -74.084046]}
                 zoom={17}
                 minZoom={16}
-                maxZoom={20}
+                maxZoom={18}
                 maxBounds={[
                   [4.6315, -74.0935],
                   [4.6445, -74.069],

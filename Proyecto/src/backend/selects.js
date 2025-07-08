@@ -1,12 +1,19 @@
 const db = require("../database/db.js");
 const { encriptarTexto , compararTexto } = require("./encrypt.js");
 
+function getUsuarioPorCorreo(email){
+  return new Promise((resolve, reject) => {
+    db.get("SELECT * FROM usuarios WHERE correo = ?", [email], (err, row) => {
+      if (err) return reject(err);
+      resolve(row);
+    });
+  });
+}
+
 async function login(email, password){
 
   try{
-    const passwordHash = await encriptarTexto(password);
-    const stmt = db.prepare("SELECT * FROM usuarios WHERE correo = ?");
-    const usuario = stmt.get(email);
+    const usuario = await getUsuarioPorCorreo(email);
 
     if (usuario == null) {
       console.log("Usuario no encontrado");
