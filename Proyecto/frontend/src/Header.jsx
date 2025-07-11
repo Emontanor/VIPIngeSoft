@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { rolePermissions } from "./logicas/role_management";
+import { rolePermissions } from "./context/role_management";
 
-const Header = ({ role = "user" ,view }) => {
+const Header = ({ role ,view }) => {
 
     const navigate = useNavigate();
     const handleSignOut = () => {

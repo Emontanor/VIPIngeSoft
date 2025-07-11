@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "leaflet/dist/leaflet.css";
 import "./Report.css";
 import Header from "./Header";
+import { useAuth } from "./context/context.jsx";
 
 // Icono rojo personalizado
 const customIcon = new L.Icon({
@@ -22,6 +23,10 @@ const customIcon = new L.Icon({
 });
 
 function Report() {
+  const { role } = useAuth();
+  const { correo } = useAuth();
+  const { nombre } = useAuth(); 
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -85,10 +90,9 @@ function Report() {
     });
 
     setForm({
-      name: "",
-      email: "",
+      name: { nombre },
+      email: { correo },
       age: "",
-      link: "",
       date: "",
       type: "",
       description: "",
@@ -113,7 +117,7 @@ function Report() {
 
   return (
     <div className="report-container">
-      <Header role = "admin" view = "report" />
+      <Header role = {role} view = "report" />
 
       <div className="report-content">
         <div className="form-header-text">
@@ -131,9 +135,8 @@ function Report() {
               type="text"
               id="name"
               name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Please put your full name"
+              value={nombre}
+              disabled
             />
           </div>
 
@@ -143,9 +146,8 @@ function Report() {
               type="email"
               id="email"
               name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Do not forget put an @"
+              value={correo}
+              disabled
             />
           </div>
 

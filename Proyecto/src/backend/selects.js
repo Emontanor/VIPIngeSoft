@@ -25,7 +25,13 @@ async function login(email, password){
         return { success: false };
       }
       console.log("Usuario encontrado:", usuario);
-      return { success: true };
+      console.log(usuario.role, usuario.correo, usuario.nombre);
+      return {
+        success: true,
+        role: usuario.role,
+        correo: usuario.correo,
+        nombre: usuario.nombre
+      }
     }
   }catch (error) {
     console.error("Error al realizar el login:", error);

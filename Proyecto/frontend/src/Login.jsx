@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
+import { useAuth } from "./context/context.jsx";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setRole } = useAuth();
+  const { setCorreo } = useAuth();
+  const { setNombre } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -27,6 +31,10 @@ function Login() {
 
       if (response.success) {
         setError("");
+        console.log("Inicio de sesión exitoso");
+        setRole(response.role); 
+        setCorreo(response.correo);
+        setNombre(response.nombre);
         navigate("/map");
       } else {
         setError(response.message || "Error de autenticación");

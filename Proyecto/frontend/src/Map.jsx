@@ -4,18 +4,16 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Report.css"; // para mantener tu estilo actual
 import Header from "./Header";
+import { useAuth } from "./context/context.jsx";
 
 function Map() {
   const navigate = useNavigate();
-
-  const handleSignOut = () => {
-    navigate("/");
-  };
+  const { role } = useAuth();
 
   return (
     <div className="report-container">
 
-      <Header role="admin" view = "map" />
+      <Header role={role} view = "map" />
 
       <div className="report-content">
         <h1

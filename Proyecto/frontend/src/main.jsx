@@ -6,15 +6,18 @@ import Register from "./Register";
 import Report from "./Report";
 import Map from "./Map";
 import Statistics from "./Statistics";
+import { AuthProvider } from "./context/context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/report" element={<Report />} />
-      <Route path="/map" element={<Map />} />
-      <Route path="/statistics" element={<Statistics />} />
-    </Routes>
-  </BrowserRouter>
+  <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/report" element={<Report />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/statistics" element={<Statistics />} />
+      </Routes>
+    </BrowserRouter>
+  </AuthProvider>
 );

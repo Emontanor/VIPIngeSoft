@@ -1,8 +1,8 @@
 export const rolePermissions = {
-    admin : {
+    1 : {
         canAcces: ["statitics", "report", "map"],
     },
-    user: {
+    2: {
         canAcces: ["report", "map"],
     }
 }
