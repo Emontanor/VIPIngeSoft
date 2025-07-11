@@ -51,13 +51,9 @@ function Report() {
 
   const validarFormulario = (e) => {
     e.preventDefault();
-    const emailRegex = /^[^@]+@[^@]+$/;
 
     if (
-      !form.name ||
-      !form.email ||
       !form.age ||
-      !form.link ||
       !form.date ||
       !form.type
     ) {
@@ -69,10 +65,6 @@ function Report() {
       return;
     }
 
-    if (!emailRegex.test(form.email)) {
-      setError('Email must contain exactly one "@"');
-      return;
-    }
 
     if (!position) {
       setError("Please select a location on the map");
