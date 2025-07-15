@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { rolePermissions } from "./context/role_management";
 
-const Header = ({ role ,view }) => {
-
+const Header = ({ rol ,view }) => {
+    
     const navigate = useNavigate();
     const handleSignOut = () => {
     navigate("/");
@@ -12,7 +12,7 @@ const Header = ({ role ,view }) => {
     return `header-btn ${view === name ? "active" : ""}`;
     };
 
-    const permissions = rolePermissions[role]?.canAcces || [];
+    const permissions = rolePermissions[rol]?.canAcces || [];
 
     return (
         <header className="report-header go-front">

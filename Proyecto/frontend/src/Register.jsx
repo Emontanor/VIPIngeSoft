@@ -26,8 +26,18 @@ function Register() {
     }
     setError("");
 
+    const formatName = (str) =>
+      str
+        .toLowerCase()
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+
     try {
-      const response = await window.api.register(2, email, password, name);
+      const response = await window.api.register(
+        2,
+        email.trim().toLowerCase(),
+        password,
+        formatName(name)
+      );
 
       if (response.success) {
         setError("");
@@ -47,8 +57,6 @@ function Register() {
       console.error("Error al crear usuario:", error);
       setError("Error de comunicación con el backend");
     }
-
-    
 
     setTimeout(() => {
       navigate("/");

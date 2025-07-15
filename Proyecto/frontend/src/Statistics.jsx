@@ -7,14 +7,14 @@ import { useAuth } from './context/context.jsx';
 
 function Statistics() {
   const navigate = useNavigate();
-  const { role } = useAuth();
+  const { rol } = useAuth();
 
   const handleSignOut = () => {
     navigate('/'); 
   };
   return (
     <div className="report-container">
-      <Header role={role} view = "statistics" />
+      <Header rol={rol} view = "statistics" />
       <div className="report-content">
         <h1 className="form-title" style={{ textAlign: 'center', padding: '0.1rem'}}>
             STATISTICS

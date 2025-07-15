@@ -1,9 +1,9 @@
 const db = require("../database/db.js");
 const { encriptarTexto } = require("./encrypt.js");
 
-function putUsuario(role,correo,nombre,contraseña) {
+function putUsuario(rol,correo,nombre,contraseña) {
     return new Promise((resolve, reject) => {
-        db.run("INSERT INTO usuarios (role, correo, nombre, contraseña) VALUES (?, ?, ?, ?)", [role, correo, nombre, contraseña], function(err) {
+        db.run("INSERT INTO usuarios (rol, correo, nombre, contraseña) VALUES (?, ?, ?, ?)", [rol, correo, nombre, contraseña], function(err) {
             if(err) return reject(err);
             return resolve({ success: true, id: this.lastID });
         });

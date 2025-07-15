@@ -1,5 +1,5 @@
 const db = require("../database/db.js");
-const { encriptarTexto , compararTexto } = require("./encrypt.js");
+const { compararTexto } = require("./encrypt.js");
 
 function getUsuarioPorCorreo(email){
   return new Promise((resolve, reject) => {
@@ -25,10 +25,10 @@ async function login(email, password){
         return { success: false };
       }
       console.log("Usuario encontrado:", usuario);
-      console.log(usuario.role, usuario.correo, usuario.nombre);
+      console.log(usuario.rol, usuario.correo, usuario.nombre);
       return {
         success: true,
-        role: usuario.role,
+        rol: usuario.rol,
         correo: usuario.correo,
         nombre: usuario.nombre
       }

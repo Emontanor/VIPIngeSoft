@@ -8,12 +8,12 @@ import { useAuth } from "./context/context.jsx";
 
 function Map() {
   const navigate = useNavigate();
-  const { role } = useAuth();
+  const { rol } = useAuth();
 
   return (
     <div className="report-container">
 
-      <Header role={role} view = "map" />
+      <Header rol={rol} view = "map" />
 
       <div className="report-content">
         <h1

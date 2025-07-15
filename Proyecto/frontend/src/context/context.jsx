@@ -3,14 +3,14 @@ import { createContext, useState, useContext } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [role, setRole] = useState(null);
+  const [rol, setRol] = useState(null);
   const [correo, setCorreo] = useState(null);
   const [nombre, setNombre] = useState(null);
 
 
   return (
-    <AuthContext.Provider 
-      value={{ role, setRole, correo, setCorreo, nombre, setNombre }}
+    <AuthContext.Provider
+      value={{ rol, setRol, correo, setCorreo, nombre, setNombre }}
     >
       {children}
     </AuthContext.Provider>

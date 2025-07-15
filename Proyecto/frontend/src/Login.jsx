@@ -6,7 +6,7 @@ import { useAuth } from "./context/context.jsx";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setRole } = useAuth();
+  const { setRol } = useAuth();
   const { setCorreo } = useAuth();
   const { setNombre } = useAuth();
   const [error, setError] = useState("");
@@ -27,12 +27,12 @@ function Login() {
     }
 
     try {
-      const response = await window.api.login(email, password);
+      const response = await window.api.login(email.toLowerCase(), password);
 
       if (response.success) {
         setError("");
         console.log("Inicio de sesión exitoso");
-        setRole(response.role); 
+        setRol(response.rol);
         setCorreo(response.correo);
         setNombre(response.nombre);
         navigate("/map");

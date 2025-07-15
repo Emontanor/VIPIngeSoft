@@ -23,7 +23,7 @@ const customIcon = new L.Icon({
 });
 
 function Report() {
-  const { role } = useAuth();
+  const { rol } = useAuth();
   const { correo } = useAuth();
   const { nombre } = useAuth(); 
 
@@ -109,7 +109,7 @@ function Report() {
 
   return (
     <div className="report-container">
-      <Header role = {role} view = "report" />
+      <Header rol = {rol} view = "report" />
 
       <div className="report-content">
         <div className="form-header-text">
