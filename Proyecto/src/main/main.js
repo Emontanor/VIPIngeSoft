@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { ipcMain } = require("electron");
-const { login } = require("../backend/selects.js");
-const { register } = require("../backend/inserts.js");
+const { login , statistics} = require("../backend/selects.js");
+const { register , report } = require("../backend/inserts.js");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -25,7 +25,16 @@ ipcMain.handle("login", async (event, { email, password }) => {
 ipcMain.handle("register", async (event, { role, email, password, name}) => {
   console.log("Register attempt:", role, email, password, name);
   return await register(role, email, password, name);
-})
+});
+
+ipcMain.handle("report", async (event, { name, email, age, date, type, description, lat, lng }) => {
+  console.log("Report attempt:", name, email, age, date, type, description, lat, lng);
+  return await report(email, age, date, type, description, lat, lng);
+});
+
+ipcMain.handle("statistics", async (event) => {
+  return await statistics();
+});
 
 app.whenReady().then(() => {
   createWindow();

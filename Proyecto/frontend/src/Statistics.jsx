@@ -1,23 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Report.css';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
+import './Report.css';
 import { useAuth } from './context/context.jsx';
 
 function Statistics() {
   const navigate = useNavigate();
   const { rol } = useAuth();
 
-  const handleSignOut = () => {
-    navigate('/'); 
-  };
+  const [incidentes, setIncidentes] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await window.api.statistics();
+        setIncidentes(response.data);
+        console.log('Incidentes data:', response.data);
+      } catch (error) {
+        console.error('Error in Statistics component:', error);
+        setError("Error al cargar los datos de estadísticas");
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="report-container">
-      <Header rol={rol} view = "statistics" />
+      <Header rol={rol} view="statistics" />
       <div className="report-content">
-        <h1 className="form-title" style={{ textAlign: 'center', padding: '0.1rem'}}>
-            STATISTICS
+        <h1 className="form-title" style={{ textAlign: 'center', padding: '0.1rem' }}>
+          STATISTICS
         </h1>
         <p className="form-subtitle" style={{ textAlign: 'center', fontSize: '0.8rem', padding: '0.3rem' }}>
           IN THIS SPACE YOU CAN SEE THE GENERAL STATISTICS
@@ -26,6 +40,43 @@ function Statistics() {
         <p className="form-subtitle" style={{ textAlign: 'center', fontSize: '0.6rem' }}>
           STATS
         </p>
+
+        {/* Mensaje de error si lo hay */}
+        {error && <p className="error-message">{error}</p>}
+
+        {/* Tabla de incidentes */}
+        {incidentes.length > 0 ? (
+          <div className="tabla-container">
+            <table className="tabla-incidentes">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Edad</th>
+                  <th>Fecha</th>
+                  <th>Tipo de violencia</th>
+                  <th>Descripción</th>
+                  <th>Zona</th>
+                </tr>
+              </thead>
+              <tbody>
+                {incidentes.map((inc, index) => (
+                  <tr key={index}>
+                    <td>{inc.nombre}</td>
+                    <td>{inc.correo}</td>
+                    <td>{inc.edad}</td>
+                    <td>{inc.fecha}</td>
+                    <td>{inc.tipo_de_violencia}</td>
+                    <td>{inc.descripcion}</td>
+                    <td>{inc.zona}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          !error && <p style={{ textAlign: 'center', fontSize: '0.8rem' }}>No hay datos disponibles.</p>
+        )}
       </div>
     </div>
   );

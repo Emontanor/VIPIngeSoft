@@ -27,44 +27,34 @@ function Report() {
   const { correo } = useAuth();
   const { nombre } = useAuth(); 
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    age: "",
-    link: "",
-    date: "",
-    type: "",
-    description: "",
-  });
-
-  const [position, setPosition] = useState(null); // Coordenadas del clic
-  const [error, setError] = useState("");
+  const [ name, setName ] = useState(nombre);
+  const [ email, setEmail ] = useState(correo);
+  const [ age, setAge ] = useState("");
+  const [ date, setDate ] = useState("");
+  const [ type, setType ] = useState("");
+  const [ description, setDescription ] = useState("");
+  const [ position, setPosition ] = useState(null); // Coordenadas del clic
+  const [ error, setError ] = useState("");
   const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    navigate("/");
-  };
+  // const realEmail = typeof email === "object" && email !== null ? email.correo : email;
+  // const realName = typeof name === "object" && name !== null ? name.nombre : name;
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const validarFormulario = (e) => {
+  const validarFormulario = async (e) => {
     e.preventDefault();
 
     if (
-      !form.age ||
-      !form.date ||
-      !form.type
+      !age ||
+      !date ||
+      !type
     ) {
       setError("All fields are required (except description)");
       return;
     }
-    if (isNaN(form.age) || Number(form.age) <= 0) {
+    if (isNaN(age) || Number(age) <= 0) {
       setError("Age must be a positive number");
       return;
     }
-
 
     if (!position) {
       setError("Please select a location on the map");
@@ -73,23 +63,40 @@ function Report() {
 
     setError("");
 
-    console.log("📌 Coordenadas seleccionadas:", position); // Para pruebas
-    // Aquí puedes incluir `position.lat` y `position.lng` en el objeto a guardar
+    try{
+      const response = await window.api.report(
+        name,
+        email,
+        age,
+        date,
+        type,
+        description,
+        position.lat,
+        position.lng
+      );
+      if (response.success) {
+        setError("");
+      } else {
+        setError(response.message || "Error sending report");
+      }
+    }catch(error){
+      console.error("Error al enviar el reporte:", error);
+      setError("Error de comunicación con el backend");
+      return;
+    }
 
     toast.success("Report sent successfully", {
       position: "top-center",
       autoClose: 2000,
     });
 
-    setForm({
-      name: { nombre },
-      email: { correo },
-      age: "",
-      date: "",
-      type: "",
-      description: "",
-    });
-    setPosition(null); // Limpia el marcador
+    setName(nombre);
+    setEmail(correo);
+    setAge("");
+    setDate("");
+    setType("");
+    setDescription("");
+    setPosition(null);
   };
 
   // Componente interno para manejar clics en el mapa
@@ -149,8 +156,8 @@ function Report() {
               type="number"
               id="age"
               name="age"
-              value={form.age}
-              onChange={handleChange}
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
               placeholder="Please put your age"
             />
           </div>
@@ -161,8 +168,8 @@ function Report() {
               type="date"
               id="date"
               name="date"
-              value={form.date}
-              onChange={handleChange}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
 
@@ -173,8 +180,8 @@ function Report() {
             <select
               id="type"
               name="type"
-              value={form.type}
-              onChange={handleChange}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             >
               <option value="">Select</option>
               <option value="Physical Violence">Physical Violence</option>
@@ -191,8 +198,8 @@ function Report() {
             <textarea
               id="description"
               name="description"
-              value={form.description}
-              onChange={handleChange}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe the event (optional)"
             ></textarea>
           </div>

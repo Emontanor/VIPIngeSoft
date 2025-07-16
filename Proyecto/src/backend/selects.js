@@ -1,15 +1,6 @@
 const db = require("../database/db.js");
 const { compararTexto } = require("./encrypt.js");
 
-function getUsuarioPorCorreo(email){
-  return new Promise((resolve, reject) => {
-    db.get("SELECT * FROM usuarios WHERE correo = ?", [email], (err, row) => {
-      if (err) return reject(err);
-      resolve(row);
-    });
-  });
-}
-
 async function login(email, password){
 
   try{
@@ -40,4 +31,34 @@ async function login(email, password){
     
 }
 
-module.exports = { login };
+function getUsuarioPorCorreo(email){
+  return new Promise((resolve, reject) => {
+    db.get("SELECT * FROM usuarios WHERE correo = ?", [email], (err, row) => {
+      if (err) return reject(err);
+      resolve(row);
+    });
+  });
+}
+
+
+async function statistics(){
+  try{
+    const incidentes = await getAllIncidentes();
+    console.log("Incidentes obtenidos:", incidentes);
+    return { success: true, data: incidentes };
+  }catch(error){
+    console.log("Error al obtener estadísticas:", error);
+    return { success: false, error: "Error al obtener estadísticas" };
+  }
+}
+
+function getAllIncidentes() {
+  return new Promise((resolve, reject) => {
+    db.all("SELECT usuarios.nombre as nombre,usuarios.correo as correo,incidentes.edad as edad,incidentes.fecha as fecha,tipos_incidentes.nombre as tipo_de_violencia,incidentes.descripcion as descripcion,areas.nombre as zona FROM incidentes JOIN usuarios ON incidentes.usuario_id = usuarios.id JOIN tipos_incidentes ON incidentes.tipo = tipos_incidentes.id JOIN areas ON incidentes.area = areas.id", [], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+}
+
+module.exports = { login , statistics };
