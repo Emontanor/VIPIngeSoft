@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
-import './Report.css';
+import './Statistics.css';
 import { useAuth } from './context/context.jsx';
 
 function Statistics() {
@@ -27,18 +27,14 @@ function Statistics() {
   }, []);
 
   return (
-    <div className="report-container">
+    <div className="Statistics-container">
       <Header rol={rol} view="statistics" />
-      <div className="report-content">
-        <h1 className="form-title" style={{ textAlign: 'center', padding: '0.1rem' }}>
+      <div className="Statistics-content">
+        <h1 className="Statistics-form-title" style={{ textAlign: 'center', padding: '0.1rem' }}>
           STATISTICS
         </h1>
-        <p className="form-subtitle" style={{ textAlign: 'center', fontSize: '0.8rem', padding: '0.3rem' }}>
+        <p className="Statistics-form-subtitle" style={{ textAlign: 'center', fontSize: '0.8rem', padding: '0.3rem' }}>
           IN THIS SPACE YOU CAN SEE THE GENERAL STATISTICS
-        </p>
-
-        <p className="form-subtitle" style={{ textAlign: 'center', fontSize: '0.6rem' }}>
-          STATS
         </p>
 
         {/* Mensaje de error si lo hay */}

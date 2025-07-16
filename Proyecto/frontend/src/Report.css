@@ -256,41 +256,5 @@ body {
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
   }
-.tabla-container {
-  padding: 1rem;
-  overflow-x: auto;
-}
-
-.tabla-incidentes {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.tabla-incidentes th,
-.tabla-incidentes td {
-  border: 1px solid #ccc;
-  padding: 0.6rem;
-  text-align: left;
-}
-
-.tabla-incidentes th {
-  background-color: #f2f2f2;
-}
-
-.tabla-incidentes tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-.tabla-incidentes tr:hover {
-  background-color: #f0f0f0;
-}
-
-.error-message {
-  color: red;
-  text-align: center;
-  margin: 1rem 0;
-}
-
 
 }

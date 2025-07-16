@@ -33,24 +33,32 @@ function Report() {
   const [ date, setDate ] = useState("");
   const [ type, setType ] = useState("");
   const [ description, setDescription ] = useState("");
-  const [ position, setPosition ] = useState(null); // Coordenadas del clic
+  const [ position, setPosition ] = useState(null);
   const [ error, setError ] = useState("");
   const navigate = useNavigate();
-
-  // const realEmail = typeof email === "object" && email !== null ? email.correo : email;
-  // const realName = typeof name === "object" && name !== null ? name.nombre : name;
 
   const validarFormulario = async (e) => {
     e.preventDefault();
 
-    if (
-      !age ||
-      !date ||
-      !type
-    ) {
+    if (!age || !date || !type) {
       setError("All fields are required (except description)");
       return;
     }
+
+    const fechaIngresada = new Date(date);
+    const hoy = new Date();
+    const fechaMinima = new Date("2023-01-01");
+
+    if (fechaIngresada > hoy) {
+      setError("The date cannot be in the future");
+      return;
+    }
+
+    if (fechaIngresada < fechaMinima) {
+      setError("The date cannot be before January 1st, 2023");
+      return;
+    }
+
     if (isNaN(age) || Number(age) <= 0) {
       setError("Age must be a positive number");
       return;
@@ -63,7 +71,7 @@ function Report() {
 
     setError("");
 
-    try{
+    try {
       const response = await window.api.report(
         name,
         email,
@@ -79,7 +87,7 @@ function Report() {
       } else {
         setError(response.message || "Error sending report");
       }
-    }catch(error){
+    } catch (error) {
       console.error("Error al enviar el reporte:", error);
       setError("Error de comunicación con el backend");
       return;
@@ -99,7 +107,6 @@ function Report() {
     setPosition(null);
   };
 
-  // Componente interno para manejar clics en el mapa
   const ClickMarker = () => {
     useMapEvents({
       click(e) {
@@ -116,7 +123,7 @@ function Report() {
 
   return (
     <div className="report-container">
-      <Header rol = {rol} view = "report" />
+      <Header rol={rol} view="report" />
 
       <div className="report-content">
         <div className="form-header-text">
@@ -124,10 +131,7 @@ function Report() {
           <p className="form-subtitle">Please complete the survey</p>
         </div>
 
-        <form
-          onSubmit={validarFormulario}
-          className="report-form-single-column"
-        >
+        <form onSubmit={validarFormulario} className="report-form-single-column">
           <div className="form-group">
             <label htmlFor="name">NAME AND LAST NAME</label>
             <input
@@ -170,13 +174,13 @@ function Report() {
               name="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              min="2023-01-01"
+              max={new Date().toISOString().split("T")[0]}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="type">
-              TYPE OF VIOLENCE YOU HAVE BEEN A VICTIM OF
-            </label>
+            <label htmlFor="type">TYPE OF VIOLENCE YOU HAVE BEEN A VICTIM OF</label>
             <select
               id="type"
               name="type"
@@ -185,9 +189,7 @@ function Report() {
             >
               <option value="">Select</option>
               <option value="Physical Violence">Physical Violence</option>
-              <option value="Psychological Violence">
-                Psychological Violence
-              </option>
+              <option value="Psychological Violence">Psychological Violence</option>
               <option value="Sexual Violence">Sexual Violence</option>
               <option value="Workplace Violence">Workplace Violence</option>
             </select>
