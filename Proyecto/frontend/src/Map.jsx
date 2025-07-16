@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -9,6 +9,22 @@ import { useAuth } from "./context/context.jsx";
 function Map() {
   const navigate = useNavigate();
   const { rol } = useAuth();
+
+  const [ ubicaciones, setUbicaciones ] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await window.api.map();
+        setUbicaciones(response.data);
+        console.log("Coordenadas recuperadas: ", response.data);
+      } catch (error) {
+        console.error("Error fetching ubicaciones:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div className="report-container">

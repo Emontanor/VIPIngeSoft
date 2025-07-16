@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { ipcMain } = require("electron");
-const { login , statistics} = require("../backend/selects.js");
+const { login , statistics , map } = require("../backend/selects.js");
 const { register , report } = require("../backend/inserts.js");
 
 function createWindow() {
@@ -33,7 +33,21 @@ ipcMain.handle("report", async (event, { name, email, age, date, type, descripti
 });
 
 ipcMain.handle("statistics", async (event) => {
-  return await statistics();
+  try {
+    return await statistics();
+  } catch (error) {
+    console.error("Error fetching statistics:", error);
+    throw error;
+  }
+});
+
+ipcMain.handle("map", async (event) => {
+  try {
+    return await map();
+  } catch (error) {
+    console.error("Error fetching map data:", error);
+    throw error;
+  }
 });
 
 app.whenReady().then(() => {

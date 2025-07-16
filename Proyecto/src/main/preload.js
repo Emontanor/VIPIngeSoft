@@ -11,4 +11,6 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.invoke("report", { name, email, age, date, type, description, lat, lng }),
 
   statistics: () => ipcRenderer.invoke("statistics"),
+
+  map: () => ipcRenderer.invoke("map"),
 });

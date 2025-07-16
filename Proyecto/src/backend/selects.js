@@ -61,4 +61,24 @@ function getAllIncidentes() {
   });
 }
 
-module.exports = { login , statistics };
+async function map() {
+  try {
+    const ubicaciones = await getAllCoordinates();
+    console.log("Ubicaciones obtenidas", ubicaciones);
+    return { success: true , data: ubicaciones}
+  } catch (error) {
+    console.error("Error fetching map data:", error);
+    throw error;
+  }
+}
+
+function getAllCoordinates(){
+  return new Promise((resolve, reject) => {
+    db.all("SELECT latitud,longitud FROM incidentes", [], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+}
+
+module.exports = { login , statistics , map };
