@@ -26,7 +26,6 @@ function putUsuario(rol,correo,nombre,contraseña) {
 
 async function report(email, age, date, type, description, lat, lng) {
     try {
-        console.log("Sexo Anal para Juan David");
         console.log("Datos del reporte:", email, age, date, type, description, lat, lng);
         const id_usuario = await getIdUsarioByEmail(email);
         const id_tipo_incidente = await getIdTipoIncidenteByName(type);
