@@ -67,11 +67,17 @@ function Map() {
             </Marker>
           </MapContainer>
         </div>
-        <p
+        {/* <p
           className="form-subtitle"
           style={{ textAlign: "center", fontSize: "0.6rem" }}
         >
           NOTE: THIS MAP IS UPDATED EVERY 10 SECONDS
+        </p> */}
+        <p
+          className="form-subtitle"
+          style={{ textAlign: "center", fontSize: "0.6rem" }}
+        >
+          🟣This color symbolizes our dedication to eliminating all forms of violence.
         </p>
       </div>
     </div>

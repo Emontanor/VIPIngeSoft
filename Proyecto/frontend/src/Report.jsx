@@ -237,6 +237,12 @@ function Report() {
             SEND THE REPORT
           </button>
         </form>
+        <p
+          className="form-subtitle"
+          style={{ textAlign: "center", fontSize: "0.6rem" }}
+        >
+          🟣This color symbolizes our dedication to eliminating all forms of violence.
+        </p>
       </div>
       <ToastContainer />
     </div>
