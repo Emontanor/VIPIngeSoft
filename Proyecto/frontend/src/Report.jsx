@@ -17,7 +17,6 @@ import { useAuth } from "./context/context.jsx";
 import * as turf from "@turf/turf";
 import mapData from "./assets/map.json";
 
-// Icono rojo personalizado
 const customIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
   iconSize: [32, 32],
@@ -71,8 +70,6 @@ function Report() {
       setError("Please select a location on the map");
       return;
     }
-
-    console.log("Enviando reporte con zona:", zoneRef.current); // <--- agrega esto
 
     if (
       zoneRef.current === null ||
@@ -136,7 +133,6 @@ function Report() {
             break;
           }
         }
-        console.log("Zona encontrada:", foundZone);
 
         if (foundZone) {
           setPosition(e.latlng);

@@ -13,11 +13,10 @@ function createWindow() {
     },
   });
 
-  win.loadURL("http://localhost:5173"); // Puerto de desarrollo de Vite
+  win.loadURL("http://localhost:5173");
 }
 
 ipcMain.handle("login", async (event, { email, password }) => {
-  //console.log("Login attempt:", email, password);
   return await login(email, password);
 });
 
