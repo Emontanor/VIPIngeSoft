@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import {
@@ -14,6 +14,8 @@ import "leaflet/dist/leaflet.css";
 import "./Report.css";
 import Header from "./Header";
 import { useAuth } from "./context/context.jsx";
+import * as turf from "@turf/turf";
+import mapData from "./assets/map.json";
 
 // Icono rojo personalizado
 const customIcon = new L.Icon({
@@ -25,16 +27,17 @@ const customIcon = new L.Icon({
 function Report() {
   const { rol } = useAuth();
   const { correo } = useAuth();
-  const { nombre } = useAuth(); 
-
-  const [ name, setName ] = useState(nombre);
-  const [ email, setEmail ] = useState(correo);
-  const [ age, setAge ] = useState("");
-  const [ date, setDate ] = useState("");
-  const [ type, setType ] = useState("");
-  const [ description, setDescription ] = useState("");
-  const [ position, setPosition ] = useState(null);
-  const [ error, setError ] = useState("");
+  const { nombre } = useAuth();
+  const [name, setName] = useState(nombre);
+  const [email, setEmail] = useState(correo);
+  const [age, setAge] = useState("");
+  const [date, setDate] = useState("");
+  const [type, setType] = useState("");
+  const [description, setDescription] = useState("");
+  const [position, setPosition] = useState(null);
+  const [zone, setZone] = useState(null);
+  const zoneRef = useRef(null);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const validarFormulario = async (e) => {
@@ -69,6 +72,17 @@ function Report() {
       return;
     }
 
+    console.log("Enviando reporte con zona:", zoneRef.current); // <--- agrega esto
+
+    if (
+      zoneRef.current === null ||
+      zoneRef.current === undefined ||
+      isNaN(zoneRef.current)
+    ) {
+      setError("Please select a valid area on the map.");
+      return;
+    }
+
     setError("");
 
     try {
@@ -80,7 +94,8 @@ function Report() {
         type,
         description,
         position.lat,
-        position.lng
+        position.lng,
+        zoneRef.current
       );
       if (response.success) {
         setError("");
@@ -105,18 +120,44 @@ function Report() {
     setType("");
     setDescription("");
     setPosition(null);
+    setZone(null);
+    zoneRef.current = null;
   };
 
   const ClickMarker = () => {
     useMapEvents({
       click(e) {
-        setPosition(e.latlng);
+        const { lat, lng } = e.latlng;
+        let foundZone = null;
+
+        for (const feature of mapData.features) {
+          if (turf.booleanPointInPolygon(turf.point([lng, lat]), feature)) {
+            foundZone = Number(feature.properties.Id);
+            break;
+          }
+        }
+        console.log("Zona encontrada:", foundZone);
+
+        if (foundZone) {
+          setPosition(e.latlng);
+          setZone(foundZone);
+          zoneRef.current = foundZone;
+          setError("");
+        } else {
+          setError("Please click inside a valid area.");
+          setPosition(null);
+          setZone(null);
+          zoneRef.current = null;
+        }
       },
     });
 
     return position ? (
       <Marker position={position} icon={customIcon}>
-        <Popup>Selected location</Popup>
+        <Popup>
+          Selected location
+          {zone && <div>Zone: {zone}</div>}
+        </Popup>
       </Marker>
     ) : null;
   };
@@ -124,23 +165,19 @@ function Report() {
   return (
     <div className="report-container">
       <Header rol={rol} view="report" />
-
       <div className="report-content">
         <div className="form-header-text">
           <h1 className="form-title">Make your Report</h1>
           <p className="form-subtitle">Please complete the survey</p>
         </div>
 
-        <form onSubmit={validarFormulario} className="report-form-single-column">
+        <form
+          onSubmit={validarFormulario}
+          className="report-form-single-column"
+        >
           <div className="form-group">
             <label htmlFor="name">NAME AND LAST NAME</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={nombre}
-              disabled
-            />
+            <input type="text" id="name" name="name" value={nombre} disabled />
           </div>
 
           <div className="form-group">
@@ -180,7 +217,9 @@ function Report() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="type">TYPE OF VIOLENCE YOU HAVE BEEN A VICTIM OF</label>
+            <label htmlFor="type">
+              TYPE OF VIOLENCE YOU HAVE BEEN A VICTIM OF
+            </label>
             <select
               id="type"
               name="type"
@@ -189,7 +228,9 @@ function Report() {
             >
               <option value="">Select</option>
               <option value="Physical Violence">Physical Violence</option>
-              <option value="Psychological Violence">Psychological Violence</option>
+              <option value="Psychological Violence">
+                Psychological Violence
+              </option>
               <option value="Sexual Violence">Sexual Violence</option>
               <option value="Workplace Violence">Workplace Violence</option>
             </select>
@@ -218,7 +259,7 @@ function Report() {
                 maxZoom={18}
                 maxBounds={[
                   [4.6315, -74.0935],
-                  [4.6445, -74.069],
+                  [4.6445, -74.077],
                 ]}
                 maxBoundsViscosity={1.0}
                 style={{ height: "100%", width: "100%" }}
@@ -233,7 +274,15 @@ function Report() {
           </div>
 
           {error && <p className="error-msg">{error}</p>}
-          <button type="submit" className="submit-btn">
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={
+              zoneRef.current === null ||
+              zoneRef.current === undefined ||
+              isNaN(zoneRef.current)
+            }
+          >
             SEND THE REPORT
           </button>
         </form>
@@ -241,7 +290,8 @@ function Report() {
           className="form-subtitle"
           style={{ textAlign: "center", fontSize: "0.6rem" }}
         >
-          🟣This color symbolizes our dedication to eliminating all forms of violence.
+          This color symbolizes our dedication to eliminating all forms of
+          violence.
         </p>
       </div>
       <ToastContainer />

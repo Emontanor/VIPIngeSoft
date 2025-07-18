@@ -1,8 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { ipcMain } = require("electron");
-const { login , statistics , map } = require("../backend/selects.js");
-const { register , report } = require("../backend/inserts.js");
+const { login, statistics, map } = require("../backend/selects.js");
+const { register, report } = require("../backend/inserts.js");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -19,18 +19,34 @@ function createWindow() {
 ipcMain.handle("login", async (event, { email, password }) => {
   //console.log("Login attempt:", email, password);
   return await login(email, password);
-
 });
 
-ipcMain.handle("register", async (event, { role, email, password, name}) => {
+ipcMain.handle("register", async (event, { role, email, password, name }) => {
   console.log("Register attempt:", role, email, password, name);
   return await register(role, email, password, name);
 });
 
-ipcMain.handle("report", async (event, { name, email, age, date, type, description, lat, lng }) => {
-  console.log("Report attempt:", name, email, age, date, type, description, lat, lng);
-  return await report(email, age, date, type, description, lat, lng);
-});
+ipcMain.handle(
+  "report",
+  async (
+    event,
+    { name, email, age, date, type, description, lat, lng, zone }
+  ) => {
+    console.log(
+      "Report attempt:",
+      name,
+      email,
+      age,
+      date,
+      type,
+      description,
+      lat,
+      lng,
+      zone
+    );
+    return await report(email, age, date, type, description, lat, lng, zone);
+  }
+);
 
 ipcMain.handle("statistics", async (event) => {
   try {

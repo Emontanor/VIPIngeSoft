@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./Report.css"; // para mantener tu estilo actual
+import "./Report.css";
 import Header from "./Header";
 import { useAuth } from "./context/context.jsx";
 
@@ -10,7 +10,7 @@ function Map() {
   const navigate = useNavigate();
   const { rol } = useAuth();
 
-  const [ ubicaciones, setUbicaciones ] = useState([]);
+  const [ubicaciones, setUbicaciones] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,8 +28,7 @@ function Map() {
 
   return (
     <div className="report-container">
-
-      <Header rol={rol} view = "map" />
+      <Header rol={rol} view="map" />
 
       <div className="report-content">
         <h1
@@ -47,15 +46,15 @@ function Map() {
 
         <div style={{ height: "400px", width: "100%" }}>
           <MapContainer
-            center={[4.638193, -74.084046]} // Centro: UNAL Bogotá
-            zoom={17} // Zoom inicial
-            minZoom={16} // Zoom mínimo (no puede alejar más)
-            maxZoom={18} // Zoom máximo (acercar más)
+            center={[4.638193, -74.084046]}
+            zoom={17}
+            minZoom={16}
+            maxZoom={18}
             maxBounds={[
-              [4.6315, -74.0935], // suroeste (más abajo y más a la izquierda)
-              [4.6445, -74.069], // noreste (más arriba y más a la derecha)
+              [4.6315, -74.0935], // suroeste[Abajo, Izquierda]
+              [4.6445, -74.077], // noreste[Arriba, Derecha]
             ]}
-            maxBoundsViscosity={1.0} // Impide salir del área
+            maxBoundsViscosity={1.0}
             style={{ height: "100%", width: "100%" }}
           >
             <TileLayer
@@ -77,7 +76,8 @@ function Map() {
           className="form-subtitle"
           style={{ textAlign: "center", fontSize: "0.6rem" }}
         >
-          🟣This color symbolizes our dedication to eliminating all forms of violence.
+          This color symbolizes our dedication to eliminating all forms of
+          violence.
         </p>
       </div>
     </div>

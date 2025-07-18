@@ -2,19 +2,16 @@
 
 echo "🔍 Verificando dependencias del sistema..."
 
-# Verifica Node.js
 if ! command -v node &> /dev/null; then
     echo "❌ Node.js no está instalado. Instálalo primero."
     exit 1
 fi
 
-# Verifica npm
 if ! command -v npm &> /dev/null; then
     echo "❌ npm no está instalado. Instálalo primero."
     exit 1
 fi
 
-# Verifica sqlite3
 if ! command -v sqlite3 &> /dev/null; then
     echo "❌ SQLite3 no está instalado. Intenta con 'sudo pacman -S sqlite sqlite3' o equivalente."
     exit 1
@@ -29,8 +26,8 @@ cd frontend
 npm install
 cd ..
 
-echo "🗃️ Inicializando la base de datos..."
+echo "Inicializando la base de datos..."
 node init.js
 
-echo "🚀 Iniciando la aplicación en modo desarrollo..."
+echo "Iniciando la aplicación en modo desarrollo..."
 npm run dev

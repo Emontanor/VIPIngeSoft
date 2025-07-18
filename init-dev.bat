@@ -1,4 +1,6 @@
 @echo off
+chcp 65001
+
 echo Verificando que Node.js esté instalado...
 where node >nul 2>nul || (
     echo ❌ Node.js no está instalado. Instálalo desde https://nodejs.org/

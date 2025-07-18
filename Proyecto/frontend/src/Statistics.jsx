@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import './Statistics.css';
-import { useAuth } from './context/context.jsx';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import "./Statistics.css";
+import { useAuth } from "./context/context.jsx";
 
 function Statistics() {
   const navigate = useNavigate();
@@ -16,9 +16,9 @@ function Statistics() {
       try {
         const response = await window.api.statistics();
         setIncidentes(response.data);
-        console.log('Incidentes data:', response.data);
+        console.log("Incidentes data:", response.data);
       } catch (error) {
-        console.error('Error in Statistics component:', error);
+        console.error("Error in Statistics component:", error);
         setError("Error al cargar los datos de estadísticas");
       }
     }
@@ -30,10 +30,16 @@ function Statistics() {
     <div className="Statistics-container">
       <Header rol={rol} view="statistics" />
       <div className="Statistics-content">
-        <h1 className="Statistics-form-title" style={{ textAlign: 'center', padding: '0.1rem' }}>
+        <h1
+          className="Statistics-form-title"
+          style={{ textAlign: "center", padding: "0.1rem" }}
+        >
           STATISTICS
         </h1>
-        <p className="Statistics-form-subtitle" style={{ textAlign: 'center', fontSize: '0.8rem', padding: '0.3rem' }}>
+        <p
+          className="Statistics-form-subtitle"
+          style={{ textAlign: "center", fontSize: "0.8rem", padding: "0.3rem" }}
+        >
           IN THIS SPACE YOU CAN SEE THE GENERAL STATISTICS
         </p>
 
@@ -71,13 +77,18 @@ function Statistics() {
             </table>
           </div>
         ) : (
-          !error && <p style={{ textAlign: 'center', fontSize: '0.8rem' }}>No hay datos disponibles.</p>
+          !error && (
+            <p style={{ textAlign: "center", fontSize: "0.8rem" }}>
+              No hay datos disponibles.
+            </p>
+          )
         )}
         <p
           className="form-subtitle"
           style={{ textAlign: "center", fontSize: "0.6rem" }}
         >
-          🟣This color symbolizes our dedication to eliminating all forms of violence.
+          This color symbolizes our dedication to eliminating all forms of
+          violence.
         </p>
       </div>
     </div>
