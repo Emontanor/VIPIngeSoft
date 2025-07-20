@@ -7,7 +7,7 @@
     "build": "npm run build --prefix frontend && electron-builder",
     "start": "electron .",
     "rebuild": "electron-rebuild",
-    "test": "jest"
+    "test": "vitest"
   },
   "build": {
     "appId": "com.cacviun.app",
@@ -38,8 +38,8 @@
     "eslint": "^9.31.0",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.3.0",
-    "jest": "^29.0.0",
     "nodemon": "^3.1.10",
+    "vitest": "^3.2.4",
     "wait-on": "^8.0.3"
   },
   "dependencies": {
