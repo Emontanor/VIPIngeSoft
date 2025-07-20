@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import {
   MapContainer,
@@ -37,7 +36,6 @@ function Report() {
   const [zone, setZone] = useState(null);
   const zoneRef = useRef(null);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const validarFormulario = async (e) => {
     e.preventDefault();

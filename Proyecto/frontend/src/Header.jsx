@@ -1,15 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { rolePermissions } from "./context/role_management";
+import PropTypes from "prop-types";
 
 const Header = ({ rol ,view }) => {
-    
+
     const navigate = useNavigate();
     const handleSignOut = () => {
     navigate("/");
-    };
-
-    const getButtonClass = (name) => {
-    return `header-btn ${view === name ? "active" : ""}`;
     };
 
     const permissions = rolePermissions[rol]?.canAcces || [];
@@ -49,5 +46,10 @@ const Header = ({ rol ,view }) => {
         </header>
     );
 }
+
+Header.propTypes = {
+    rol: PropTypes.string.isRequired,
+    view: PropTypes.string.isRequired,
+};
 
 export default Header;

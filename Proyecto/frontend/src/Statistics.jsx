@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "./Statistics.css";
 import { useAuth } from "./context/context.jsx";
 
 function Statistics() {
-  const navigate = useNavigate();
   const { rol } = useAuth();
 
   const [incidentes, setIncidentes] = useState([]);
