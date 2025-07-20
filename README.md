@@ -33,4 +33,33 @@ Somos un Lolas VIP, un grupo de estudiantes de ingeniería de sistemas y computa
 
 <hr>
 
+## Requisitos
+- Node.js 
+- Git
+- Sqlite3
+
+<hr>
+
+## Estructura inicial
+- `Proyecto/fronted/src` Componentes de react para el frontend
+- `Proyecto/frontend/assets` Archivos adicionales para las vistas del frontend
+- `Proyecto/src/main/main.js` Proceso principal de electron
+- `Proyecto/src/main/preload.js` Conexión entre frontend y backend
+- `Proyecto/src/database` Scripts de inicialización de la base de datos y base de datos
+- `Proyecto/src/backend` Archivos de configuración del backend
+<hr>
+
+## Cómo instalar el proyecto y preparar el entorno
+#### En Windows:
+```bash
+/.init-dev.bat
+```
+
+#### En Linux/Mac:
+```bash
+chmod +x init-dev.sh
+./init-dev.sh
+```
+<hr>
+
 ¡Si te gusta el proyecto dale estrellita!⭐ si quieres ayudarnos a mejorar el proyecto, envianos sugerencias 🥳
